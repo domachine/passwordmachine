@@ -96,7 +96,17 @@ var traverse = exports.traverse = function(record, pattern, path) {
  */
 
 exports.Database = function(buffer, key) {
-  var data = this.data = decrypt(buffer, key);
+  var data = decrypt(buffer, key);
+  var modified = false;
+
+  Object.defineProperties(this, {
+    data: { value: data },
+    modified: {
+      get: function() {
+        return modified;
+      }
+    }
+  });
 
   /**
    * Search for a pattern within the database.
@@ -143,8 +153,10 @@ exports.Database = function(buffer, key) {
         })
         .reduce(function(record, key) {
           if (record[key] === undefined) {
+            modified = false || modified;
             return record[key] = {};
           }
+          modified = true;
           return record[key];
         }, data);
       return result[parts.slice(-1)[0]] = value;
@@ -161,6 +173,31 @@ exports.Database = function(buffer, key) {
     }
     return data.then(function(data) {
       return encrypt({ version: '~' + FORMAT_VERSION, data: data }, _key);
+    });
+  };
+
+  /**
+   * Remove a key from the database.
+   */
+
+  this.remove = function(path) {
+    return data.then(function(data) {
+      var parts = path.split('/');
+      var expression = 'data';
+      var result = parts
+        .slice(0, -1)
+        .filter(function(part) {
+          return !!part;
+        })
+        .reduce(function(record, key) {
+          if (record[key] === undefined) {
+            modified = false || modified;
+            return record[key] = {};
+          }
+          modified = true;
+          return record[key];
+        }, data);
+      delete result[parts.slice(-1)[0]];
     });
   };
 };

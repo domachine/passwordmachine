@@ -129,4 +129,34 @@ describe('Database', function() {
         .fail(done);
     });
   });
+  describe('#remove()', function() {
+    it('should remove a password from the database', function(done) {
+      database.set('mydump/password', 'mydump_password')
+        .then(function() {
+          return database.remove('mydump/password');
+        })
+        .then(function() {
+          return database.get('mydump/password');
+        })
+        .then(function(password) {
+          should.equal(password, null);
+          done();
+        })
+        .fail(done);
+    });
+    it('should remove a directory from the database', function(done) {
+      database.set('mydump/passwords/password_one', 'mydump_password')
+        .then(function() {
+          return database.remove('mydump');
+        })
+        .then(function() {
+          return database.get('mydump');
+        })
+        .then(function(password) {
+          should.equal(password, null);
+          done();
+        })
+        .fail(done);
+    });
+  });
 });
