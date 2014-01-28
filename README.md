@@ -6,7 +6,7 @@
 
 ## Installation
 
-   $ npm install -g passwordmachine
+    $ npm install -g passwordmachine
 
 ## Usage
 
