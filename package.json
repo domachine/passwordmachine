@@ -1,6 +1,6 @@
 {
   "name": "passwordmachine",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Organize your passwords in a safe database.",
   "main": "index.js",
   "bin": {
