@@ -1,0 +1,25 @@
+{
+  "name": "dopasswordmachine",
+  "version": "0.0.0",
+  "description": "Organize your passwords in a safe database.",
+  "main": "index.js",
+  "bin": {
+    "dopasswordmachine": "bin/dopasswordmachine.js"
+  },
+  "scripts": {
+    "test": "mocha --reporter spec spec"
+  },
+  "author": "Dominik Burgdörfer <dominik.burgdoerfer@gmail.com>",
+  "license": "BSD",
+  "devDependencies": {
+    "chai": "~1.8.1",
+    "mocha": "~1.17.1"
+  },
+  "dependencies": {
+    "q": "~1.0.0",
+    "semver": "~2.2.1",
+    "optimist": "~0.6.0",
+    "colors": "~0.6.2",
+    "read": "~1.0.5"
+  }
+}
