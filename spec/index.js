@@ -99,10 +99,10 @@ describe('Database', function() {
   });
   describe('#set()', function() {
     it('should set a new password', function(done) {
-      database.set('company/password', 'giga_secret')
+      database.set('company 3/passwords/password', 'giga_secret')
         .then(function(password) {
           password.should.equal('giga_secret');
-          return database.get('company/password');
+          return database.get('company 3/passwords/password');
         })
         .then(function(password) {
           password.should.equal('giga_secret');

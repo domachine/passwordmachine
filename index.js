@@ -152,7 +152,10 @@ exports.Database = function(buffer, key) {
           return !!part;
         })
         .reduce(function(record, key) {
-          return record[key] || {};
+          if (record[key] === undefined) {
+            record[key] = {};
+          }
+          return record[key];
         }, data);
       modified = true;
       return result[parts.slice(-1)[0]] = value;
