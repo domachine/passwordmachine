@@ -106,6 +106,7 @@ describe('Database', function() {
         })
         .then(function(password) {
           password.should.equal('giga_secret');
+          database.modified.should.equal(true);
           done();
         })
         .fail(done);
@@ -140,6 +141,7 @@ describe('Database', function() {
         })
         .then(function(password) {
           should.equal(password, null);
+          database.modified.should.equal(true);
           done();
         })
         .fail(done);
@@ -154,6 +156,7 @@ describe('Database', function() {
         })
         .then(function(password) {
           should.equal(password, null);
+          database.modified.should.equal(true);
           done();
         })
         .fail(done);

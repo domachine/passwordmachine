@@ -152,13 +152,9 @@ exports.Database = function(buffer, key) {
           return !!part;
         })
         .reduce(function(record, key) {
-          if (record[key] === undefined) {
-            modified = false || modified;
-            return record[key] = {};
-          }
-          modified = true;
-          return record[key];
+          return record[key] || {};
         }, data);
+      modified = true;
       return result[parts.slice(-1)[0]] = value;
     });
   };
@@ -197,6 +193,9 @@ exports.Database = function(buffer, key) {
           modified = true;
           return record[key];
         }, data);
+      if (!modified && result === data) {
+        modified = true;
+      }
       delete result[parts.slice(-1)[0]];
     });
   };
