@@ -136,12 +136,17 @@ exports.Database = function(buffer, key) {
     return data.then(function(data) {
       var parts = path.split('/');
       var expression = 'data';
-      var result = parts.slice(0, -1).reduce(function(record, key) {
-        if (record[key] === undefined) {
-          return record[key] = {};
-        }
-        return record[key];
-      }, data);
+      var result = parts
+        .slice(0, -1)
+        .filter(function(part) {
+          return !!part;
+        })
+        .reduce(function(record, key) {
+          if (record[key] === undefined) {
+            return record[key] = {};
+          }
+          return record[key];
+        }, data);
       return result[parts.slice(-1)[0]] = value;
     });
   };
