@@ -1,10 +1,10 @@
 {
-  "name": "dopasswordmachine",
+  "name": "passwordmachine",
   "version": "0.0.0",
   "description": "Organize your passwords in a safe database.",
   "main": "index.js",
   "bin": {
-    "dopasswordmachine": "bin/dopasswordmachine.js"
+    "passwordmachine": "bin/passwordmachine.js"
   },
   "scripts": {
     "test": "mocha --reporter spec spec"

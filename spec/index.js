@@ -2,16 +2,16 @@
 var chai = require('chai');
 var should = chai.should();
 
-var dopasswordmachine = require('..');
+var passwordmachine = require('..');
 
 var passwords = require('./passwords');
 var key = 'master-password';
 
 describe('#encrypt() and #decrypt()', function() {
   it('should encrypt and then decrypt a database', function(done) {
-    dopasswordmachine.encrypt(passwords, key)
+    passwordmachine.encrypt(passwords, key)
       .then(function(buffer) {
-        return dopasswordmachine.decrypt(buffer, key);
+        return passwordmachine.decrypt(buffer, key);
       })
       .then(function(data) {
         data.should.eql(passwords.data);
@@ -23,7 +23,7 @@ describe('#encrypt() and #decrypt()', function() {
 
 describe('#traverse()', function() {
   it('should find the entry in the record', function() {
-    dopasswordmachine.traverse(passwords.data, /^area 69$/)
+    passwordmachine.traverse(passwords.data, /^area 69$/)
       .should.eql([ {
         path: 'company',
         type: 'directory',
@@ -33,7 +33,7 @@ describe('#traverse()', function() {
       } ]);
   });
   it('should find deep entry in the record', function() {
-    dopasswordmachine.traverse(passwords.data, /^ftp$/)
+    passwordmachine.traverse(passwords.data, /^ftp$/)
       .should.eql([ {
         path: 'company 2/area 62',
         type: 'password',
@@ -47,16 +47,16 @@ describe('#traverse()', function() {
 describe('Database', function() {
   var database;
   before(function(done) {
-    dopasswordmachine.encrypt(passwords, key)
+    passwordmachine.encrypt(passwords, key)
       .then(function(buffer) {
-        database = new dopasswordmachine.Database(buffer, key);
+        database = new passwordmachine.Database(buffer, key);
         done();
       })
       .fail(done);
   });
   describe('#search()', function() {
     it('should find a namespace', function(done) {
-      dopasswordmachine.encrypt(passwords, key)
+      passwordmachine.encrypt(passwords, key)
         .then(function(buffer) {
           return database.search(/^area 6/)
             .then(function(results) {
@@ -115,7 +115,7 @@ describe('Database', function() {
     it('should encrypt the database', function(done) {
       database.data
         .then(function(data) {
-          return dopasswordmachine.encrypt({
+          return passwordmachine.encrypt({
             version: passwords.version,
             data: data
           }, key)
