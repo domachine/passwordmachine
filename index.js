@@ -129,7 +129,7 @@ exports.Database = function(buffer, key) {
       var result = parts.reduce(function(record, key) {
         return record[key] || {};
       }, data);
-      if (typeof result === 'string') {
+      if (typeof result === 'string' || typeof result === 'number') {
         return result;
       }
       return Object.keys(result).length === 0
