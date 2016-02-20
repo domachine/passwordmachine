@@ -10,16 +10,25 @@
     "test": "mocha --reporter spec spec"
   },
   "author": "Dominik Burgdörfer <dominik.burgdoerfer@gmail.com>",
-  "license": "BSD",
+  "license": "ISC",
   "devDependencies": {
-    "chai": "~1.8.1",
-    "mocha": "~1.17.1"
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
   },
   "dependencies": {
-    "q": "~1.0.0",
-    "semver": "~2.2.1",
+    "colors": "^1.1.2",
     "optimist": "~0.6.0",
-    "colors": "~0.6.2",
-    "read": "~1.0.5"
-  }
+    "q": "^1.4.1",
+    "read": "~1.0.5",
+    "semver": "^5.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/domachine/passwordmachine.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/domachine/passwordmachine/issues"
+  },
+  "homepage": "https://github.com/domachine/passwordmachine#readme"
 }
