@@ -42,7 +42,7 @@ optimist = optimist
 
 var dump = function(database) {
   return database.data.then(function(data) {
-    util.print(JSON.stringify({
+    process.stdout.write(JSON.stringify({
       version: '~' + machine.FORMAT_VERSION,
       data: data
     }));
@@ -59,35 +59,35 @@ var dump = function(database) {
 var search = function(database, pattern) {
   return database.search(pattern)
     .then(function(results) {
-      util.puts('');
-      util.puts('total: ' + results.length);
+      console.log('');
+      console.log('total: ' + results.length);
       results.forEach(function(result) {
-        util.print(
+        process.stdout.write(
           result.type === 'directory'
             ? 'd '
             : 'p '
         );
-        util.print(
+        process.stdout.write(
           (result.path !== undefined ? result.path + '/' : '').magenta
         );
-        util.print(
+        process.stdout.write(
           result.type === 'directory'
             ? result.input.slice(0, result.index).blue.bold
             : result.input.slice(0, result.index)
         );
-        util.print(result.match.red.bold);
+        process.stdout.write(result.match.red.bold);
         var sliceStart = result.match.length > 0
           ? result.match.length
           : 0;
-        util.print(
+        process.stdout.write(
           result.type === 'directory'
             ? result.input.slice(sliceStart).blue.bold
             : result.input.slice(sliceStart)
         );
         if (result.type === 'directory') {
-          util.puts('/');
+          console.log('/');
         } else {
-          util.puts('');
+          console.log('');
         }
       });
     });
@@ -115,17 +115,17 @@ var get = function(database, pattern) {
         }
         if (typeof result === 'object') {
           var has = Object.hasOwnProperty;
-          util.puts('\ntotal ' + Object.keys(result).length);
+          console.log('\ntotal ' + Object.keys(result).length);
           for (var key in result) {
             if (!has.call(result, key)) continue;
             if (typeof result[key] === 'object') {
-              util.puts('d ' + key.blue.bold + '/');
+              console.log('d ' + key.blue.bold + '/');
             } else {
-              util.puts('p ' + key);
+              console.log('p ' + key);
             }
           }
         } else {
-          util.print(result);
+          process.stdout.write(result);
         }
       });
   }
